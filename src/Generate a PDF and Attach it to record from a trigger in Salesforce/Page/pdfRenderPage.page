@@ -1,0 +1,5 @@
+<apex:page standardController="Account" renderAs="pdf">
+
+Hey, the Account name is {!account.Name}
+
+</apex:page>
