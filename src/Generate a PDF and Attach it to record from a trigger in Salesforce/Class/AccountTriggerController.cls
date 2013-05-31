@@ -1,3 +1,4 @@
+```Apex
 global class AccountTriggerController{
 
     @Future(callout=true)
@@ -10,3 +11,4 @@ global class AccountTriggerController{
         stub.addPDF(accountId);
     }
 }
+```
