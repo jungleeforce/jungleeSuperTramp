@@ -1,3 +1,4 @@
+```HTML
 <apex:page>
     <!--Make sure you have the Javascript library in the same order that I have listed below.-->
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
@@ -19,3 +20,4 @@
         <b>Enter Text</b><input type="text" id="countryautocomplete"/>
     </apex:form>
 </apex:page>
+```
