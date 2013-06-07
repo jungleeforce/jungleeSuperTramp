@@ -18,7 +18,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
 
-<apex:page controller="DisplayObjectDetail">
+<apex:page controller="DisplayObjectDetail" readOnly="true">
     <script type="text/javascript" src="/resource/jQuery"></script>
     <script type="text/javascript">
     
