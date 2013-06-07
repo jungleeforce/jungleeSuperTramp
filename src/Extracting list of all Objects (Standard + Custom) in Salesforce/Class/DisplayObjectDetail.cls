@@ -55,9 +55,9 @@ public class DisplayObjectDetail{
                         objectSet.add(objTyp.getDescribe().getName());
                         //check if its a custom or standard object.
                         if(objTyp.getDescribe().isCustom()){
-                            customObjList.add(new objectClass(objTyp.getDescribe().getLabel(), objTyp.getDescribe().getName(), objTyp.getDescribe().getKeyPrefix(), objTyp.getDescribe().getChildRelationships(), objTyp.getDescribe().isCustomSetting()));
+                            customObjList.add(new objectClass(objTyp.getDescribe().getLabel(), objTyp.getDescribe().getName(), objTyp.getDescribe().getKeyPrefix(), objTyp.getDescribe().getChildRelationships(), objTyp.getDescribe().isCustomSetting(), objTyp.getDescribe().getRecordTypeInfos()));
                         }else{
-                            standardObjList.add(new objectClass(objTyp.getDescribe().getLabel(), objTyp.getDescribe().getName(), objTyp.getDescribe().getKeyPrefix(), objTyp.getDescribe().getChildRelationships(), objTyp.getDescribe().isCustomSetting()));
+                            standardObjList.add(new objectClass(objTyp.getDescribe().getLabel(), objTyp.getDescribe().getName(), objTyp.getDescribe().getKeyPrefix(), objTyp.getDescribe().getChildRelationships(), objTyp.getDescribe().isCustomSetting(), objTyp.getDescribe().getRecordTypeInfos()));
                         }
                     }
                 }else{
@@ -77,15 +77,23 @@ public class DisplayObjectDetail{
         public boolean isCustomSet{get;set;}
         public list<Schema.ChildRelationship> childObjects;
         public list<string> childObjectArray{get;set;}
-        public objectClass(string lab, string api, string prefix, list<Schema.ChildRelationship> childObj, boolean isCustomSetting){
+        public list<schema.RecordTypeInfo> recordTypes;
+        public list<string> recordTypeArray{get;set;}
+        public objectClass(string lab, string api, string prefix, list<Schema.ChildRelationship> childObj, boolean isCustomSetting, list<schema.RecordTypeInfo> recordTypeList){
             this.label = lab;
             this.apiName = api;
             this.KeyPrefix = prefix;
             this.isCustomSet = isCustomSetting;
             this.childObjectArray = new list<string>();
+            this.recordTypeArray = new list<string>();
             if(childObj!=null){
                 for(schema.childRelationShip ch : childObj){
                     this.childObjectArray.add(ch.getChildSObject().getDescribe().getLabel()+' ('+ch.getChildSObject().getDescribe().getName()+')');
+                }
+            }
+            if(recordTypeList!= null){
+                for(schema.RecordTypeInfo rt: recordTypeList){
+                    this.recordTypeArray.add(rt.getName());
                 }
             }
         }

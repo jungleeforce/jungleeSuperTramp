@@ -36,7 +36,7 @@ THE SOFTWARE.
     </script>   
 
     <apex:actionStatus id="myStatus" startText="Fetching the Data..." stopText=""/><br/><br/>
-    <apex:form>
+    <apex:form >
         <apex:actionFunction action="{!ObjectList}" status="myStatus" name="getObjectList" reRender="thePageBlock"/>
     </apex:form>
     <h1>Here's the List of Standard and Custom Objects:</h1>
@@ -51,6 +51,11 @@ THE SOFTWARE.
                     {!ch}<br/>
                 </apex:repeat>
             </apex:column>
+            <apex:column headerValue="Record Types">
+                <apex:repeat value="{!std.recordTypeArray}" var="rt">
+                    {!rt}<br/>
+                </apex:repeat>
+            </apex:column>
         </apex:pageBlockTable>
         <br/><br/><br/>
         <b>Custom Objects:</b>
@@ -62,6 +67,11 @@ THE SOFTWARE.
             <apex:column headerValue="ChildObjects">
                 <apex:repeat value="{!cust.childObjectArray}" var="ch">
                     {!ch}<br/>
+                </apex:repeat>
+            </apex:column>
+            <apex:column headerValue="Record Types">
+                <apex:repeat value="{!cust.recordTypeArray}" var="rt">
+                    {!rt}<br/>
                 </apex:repeat>
             </apex:column>
         </apex:pageBlockTable>
