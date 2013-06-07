@@ -1,0 +1,70 @@
+<!--
+Copyright (c) <2013> <junglee Force(jungleeforce@gmail.com)>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+
+<apex:page controller="DisplayObjectDetail">
+    <script type="text/javascript" src="/resource/jQuery"></script>
+    <script type="text/javascript">
+    
+        var j$ = jQuery.noConflict();
+        var timeInter =setInterval(function(){iterateObjectMethod()},2500);
+
+        function iterateObjectMethod(){
+            getObjectList();
+            var iterationDone = j$("#isIterationDoneDiv").text();
+            if(iterationDone  == 'Yes'){
+                j$("#isIterationDoneDiv").hide();
+                clearInterval(timeInter);
+            }
+        }
+    </script>   
+
+    <apex:actionStatus id="myStatus" startText="Fetching the Data..." stopText=""/><br/><br/>
+    <apex:form>
+        <apex:actionFunction action="{!ObjectList}" status="myStatus" name="getObjectList" reRender="thePageBlock"/>
+    </apex:form>
+    <h1>Here's the List of Standard and Custom Objects:</h1>
+    <apex:pageBlock id="thePageBlock">
+        <b>Standard Objects:</b>
+        <apex:pageBlockTable value="{!standardObjList}" var="std">
+            <apex:column headerValue="Name">{!std.label}</apex:column>
+            <apex:column headerValue="API Name">{!std.apiName}</apex:column>
+            <apex:column headerValue="Key Prefix">{!std.keyPrefix}</apex:column>
+            <apex:column headerValue="ChildObjects">
+                <apex:repeat value="{!std.childObjectArray}" var="ch">
+                    {!ch}<br/>
+                </apex:repeat>
+            </apex:column>
+        </apex:pageBlockTable>
+        <br/><br/><br/>
+        <b>Custom Objects:</b>
+        <apex:pageBlockTable value="{!customObjList}" var="cust">
+            <apex:column headerValue="Name">{!cust.label}</apex:column>
+            <apex:column headerValue="API Name">{!cust.apiName}</apex:column>
+            <apex:column headerValue="Key Prefix">{!cust.keyPrefix}</apex:column>
+            <apex:column headerValue="Custom Setting">{!cust.isCustomSet}</apex:column>
+            <apex:column headerValue="ChildObjects">
+                <apex:repeat value="{!cust.childObjectArray}" var="ch">
+                    {!ch}<br/>
+                </apex:repeat>
+            </apex:column>
+        </apex:pageBlockTable>
+        <div id="isIterationDoneDiv">{!isIterationDone}</div>
+     </apex:pageBlock>
+</apex:page>
